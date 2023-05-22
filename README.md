@@ -255,3 +255,73 @@ return (
 -   `space-around`  Evenly space off children across the container's main axis, distributing the remaining space around the children. Compared to  `space-between`, using  `space-around`  will result in space being distributed to the beginning of the first child and end of the last child.
     
 -   `space-evenly`  Evenly distribute children within the alignment container along the main axis. The spacing between each pair of adjacent items, the main-start edge and the first item, and the main-end edge and the last item, are all exactly the same.
+
+# Styling
+## Border
+```js
+return (
+	<View
+		style={{
+			flex: 1,
+			justifyContent:"centre",
+			alignItems:"center",
+			>
+			<View 
+				style={{
+					backgroundColor: "#333",
+					width:100,
+					height:100,
+					borderWidth:10,
+					borderColor:"#eee",
+					borderRadius: 10,
+					borderTopWidth:20,
+					borderTopLeftRadius:50,
+					}}>
+		</View>
+			
+);
+```
+## shadow
+1. IOS
+```js
+return (
+	<View
+		style={{
+			flex: 1,
+			justifyContent:"centre",
+			alignItems:"center",
+			>
+			<View 
+				style={{
+					backgroundColor: "#333",
+					width:100,
+					height:100,
+					shadowColor: "grey",
+					shadowOffset:{width: 10, heigth: 10}.
+					shadowOpacity:1,
+					shadowRadius: 10,
+					}}>
+		</View>
+			
+);
+```
+2. Android
+```js
+return (
+	<View
+		style={{
+			flex: 1,
+			justifyContent:"centre",
+			alignItems:"center",
+			>
+			<View 
+				style={{
+					backgroundColor: "#333",
+					width:100,
+					height:100,
+					elevation: 10,
+					}}>
+		</View>
+			
+);
+```
