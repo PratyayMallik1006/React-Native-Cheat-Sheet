@@ -207,3 +207,51 @@ export  default  function  App() {
 	);
 }
 ```
+## Layout with Flexbox
+
+- Read more at: https://reactnative.dev/docs/flexbox
+- [`flex`](https://reactnative.dev/docs/layout-props#flex)  will define how your items are going to  **“fill”**  over the available space along your main axis. Space will be divided according to each element's flex property.
+```js
+return (
+    //Parent Flex view
+    <View
+      style={
+        {
+          // Try setting `flexDirection` to `"row"`.
+          flexDirection: 'column',
+        }>
+	   //Children Flex Views
+      <View style={{flex: 1, backgroundColor: 'red'}} /> // 1/6th area
+      <View style={{flex: 2, backgroundColor: 'darkorange'}} /> // 2/6th 
+      <View style={{flex: 3, backgroundColor: 'green'}} /> // 3/6th
+    </View>
+  );
+```
+
+### Flex Direction
+
+[`flexDirection`](https://reactnative.dev/docs/layout-props#flexdirection)  controls the direction in which the children of a node are laid out. This is also referred to as the main axis. The cross axis is the axis perpendicular to the main axis, or the axis which the wrapping lines are laid out in.
+
+-   `column`  (**default value**) Align children from top to bottom. If wrapping is enabled, then the next line will start to the right of the first item on the top of the container.
+    
+-   `row`  Align children from left to right. If wrapping is enabled, then the next line will start under the first item on the left of the container.
+    
+-   `column-reverse`  Align children from bottom to top. If wrapping is enabled, then the next line will start to the right of the first item on the bottom of the container.
+    
+-   `row-reverse`  Align children from right to left. If wrapping is enabled, then the next line will start under the first item on the right of the container.
+
+### Justify Content
+
+[`justifyContent`](https://reactnative.dev/docs/layout-props#justifycontent)  describes how to align children within the main axis of their container. For example, you can use this property to center a child horizontally within a container with  `flexDirection`  set to  `row`  or vertically within a container with  `flexDirection`  set to  `column`.
+
+-   `flex-start`(**default value**) Align children of a container to the start of the container's main axis.
+    
+-   `flex-end`  Align children of a container to the end of the container's main axis.
+    
+-   `center`  Align children of a container in the center of the container's main axis.
+    
+-   `space-between`  Evenly space off children across the container's main axis, distributing the remaining space between the children.
+    
+-   `space-around`  Evenly space off children across the container's main axis, distributing the remaining space around the children. Compared to  `space-between`, using  `space-around`  will result in space being distributed to the beginning of the first child and end of the last child.
+    
+-   `space-evenly`  Evenly distribute children within the alignment container along the main axis. The spacing between each pair of adjacent items, the main-start edge and the first item, and the main-end edge and the last item, are all exactly the same.
