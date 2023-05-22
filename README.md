@@ -55,9 +55,9 @@ const  styles = StyleSheet.create({
  4. Scan QR from device (both devices connected to same network)
  5. Shake mobile device to open developers menu
 
-## Core Components and APIs
+# Core Components and APIs
 Refer to all components at: https://reactnative.dev/docs/components-and-apis
-### View
+## View
 `View` is designed to be nested inside other views and can have 0 to many children of any type.
 ```js
 export  default  function  App() {
@@ -81,7 +81,7 @@ return (
 }
 ```
 
-### Text
+## Text
 ```js
 const handlePress = () => console,log("Text Pressed");
 
@@ -93,7 +93,7 @@ const handlePress = () => console,log("Text Pressed");
 </View>
 
 ```
-### Images
+## Images
 ```js
 <View style={styles.continer}>
 	<Text>
@@ -107,7 +107,7 @@ const handlePress = () => console,log("Text Pressed");
 </View>
 ```
 
-#### Image props:
+### Image props:
 - blurRadius
 ```js
 <Image 
@@ -122,7 +122,7 @@ const handlePress = () => console,log("Text Pressed");
 - resizeMode
 - onLoad
 
-### Touchables
+## Touchables
 -  **TouchableWithoutFeedback:** No visual feedback on touch
 - **TouchableOpacity:** On press down, the opacity of the wrapped view is decreased, dimming it.
 -  **TouchableHighlight:** On press down, the opacity of the wrapped view is decreased, which allows the underlay color to show through, darkening or tinting the view.
@@ -138,7 +138,7 @@ const handlePress = () => console,log("Text Pressed");
 </View>
 ```
 
-### Button
+## Button
 
 ```js
 <View style={styles.continer}>
@@ -148,7 +148,7 @@ const handlePress = () => console,log("Text Pressed");
 		onPress={handlePress} />
 </View>
 ```
-### Alert
+## Alert
 ```js
 <View style={styles.continer}>
 	<Button 
@@ -170,7 +170,7 @@ const handlePress = () => console,log("Text Pressed");
 </View>
 ```
 
-### Platform Specific Code:
+## Platform Specific Code:
 ```js
 const  styles = StyleSheet.create({
 	container: {
@@ -181,4 +181,29 @@ const  styles = StyleSheet.create({
 		paddingTop: Platform.OS === "android" ? 20: 0,
 	},
 });
+```
+# Layout
+**Working with orientations: Portrait or Landscape**
+1. Go to ProjectFile > App.json 
+```js
+"orientation":"default"
+```
+2. Open CMD
+```
+npm i @react-native-community/hooks
+```
+3.  ProjectFile > App.js
+```js
+export  default  function  App() {
+	const  orientation = useDeviceOrientation();
+	
+	return (
+		<View  style={{
+			backgroundColor:"grey",
+			width:"100%",
+			height: orientation === "landscape" ? "100%" : "30%"
+			}}>	
+		</View>
+	);
+}
 ```
