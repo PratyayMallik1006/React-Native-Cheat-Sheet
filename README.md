@@ -427,7 +427,7 @@ npx expo install react-native-gesture-handler
 ```js
 import  Swipeable  from  'react-native-gesture-handler/Swipeable';
 
-function  MessagesScreen(props) {
+function  Gesture(props) {
 
 	const  swipeLeft = () => {
 		<View style={{
