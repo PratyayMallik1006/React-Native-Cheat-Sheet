@@ -325,3 +325,122 @@ return (
 			
 );
 ```
+## Adding Padding Under StatusBar 
+1. Using Platform
+```js
+import {
+FlatList,
+SafeAreaView,
+StyleSheet,
+Platform,
+StatusBar,
+} from  "react-native";
+
+function  userScreen(props) {
+return (
+<SafeAreaView  style={styles.screen}>
+<FlatList
+data={messages}
+keyExtractor={(message) =>  message.id.toString()}
+renderItem={({ item }) => (
+<ListItem
+title={item.name}
+subTitle={item.bio}
+image={item.image}
+/>
+)}
+/>
+</SafeAreaView> ); }  
+
+const  styles = StyleSheet.create({
+screen: {
+paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
+},
+});
+```
+
+2. Using expo Constants
+- npm i expo-constants
+```js
+import  Constants  from  "expo-constants";
+const  styles = StyleSheet.create({
+screen: {
+paddingTop:Constants.statusBarHeight,
+},
+});
+```
+# FlatList
+
+A performant interface for rendering basic, flat lists, supporting the most handy features:
+
+-   Fully cross-platform.
+-   Optional horizontal mode.
+-   Configurable viewability callbacks.
+-   Header support.
+-   Footer support.
+-   Separator support.
+-   Pull to Refresh.
+-   Scroll loading.
+-   ScrollToIndex support.
+-   Multiple column support.
+```js
+const DATA = [
+  {
+    id: 1,
+    title: 'First Item',
+  },
+  {
+    id: 2,
+    title: 'Second Item',
+  },
+  {
+    id: 3,
+    title: 'Third Item',
+  },
+];
+
+const Item = ({title}) => (
+  <View style={styles.item}>
+    <Text style={styles.title}>{title}</Text>
+  </View>
+);
+
+const App = () => {
+  return (
+    <SafeAreaView style={styles.container}>
+      <FlatList
+        data={DATA}
+        renderItem={({item}) => <Item title={item.title} />}
+        keyExtractor={item => item.id.toString()}
+      />
+    </SafeAreaView>
+  );
+};
+```
+# Expo Gesture Handler
+Read more: https://docs.swmansion.com/react-native-gesture-handler/
+1. Install library
+```
+npx expo install react-native-gesture-handler
+```
+2. Implement
+```js
+import  Swipeable  from  'react-native-gesture-handler/Swipeable';
+
+function  MessagesScreen(props) {
+
+	const  swipeLeft = () => {
+		<View style={{
+			backgroundColor:"red",
+			width:70,
+			}}>
+		</View>
+	};
+
+	return  (  
+	<Swipeable renderLeftActions={swipeLeft}>  
+	<Text>"hello"</Text>  
+	</Swipeable>  
+	);
+}
+```
