@@ -444,3 +444,52 @@ function  Gesture(props) {
 	);
 }
 ```
+# Pull To Refresh
+```js
+import  React, { useState } from  "react";
+import { FlatList, StyleSheet, View } from  "react-native";
+
+
+const  originalList = [
+  {
+    id: 1,
+    title: 'First Item',
+  },
+  {
+    id: 2,
+    title: 'Second Item',
+  },
+];
+
+function  Refreshing(props) {
+const [list, setList] = useState(originalList);
+const [refreshing, setRefreshing] = useState(false);
+
+return (
+<View>
+<FlatList
+data={list}
+keyExtractor={(l) =>  l.id.toString()}
+
+refreshing={refreshing}
+onRefresh={() => {
+setList([
+  {
+    id: 1,
+    title: 'First Item',
+  },
+  {
+    id: 2,
+    title: 'Second Item',
+  },
+  {
+    id: 3,
+    title: 'Third Item',
+  },
+]);
+}}
+/>
+</View>
+);
+}
+```
