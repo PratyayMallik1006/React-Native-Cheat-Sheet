@@ -493,3 +493,77 @@ setList([
 );
 }
 ```
+
+# Input
+## TextInput
+```js
+const[name, setName]=useState('');
+<TextInput 
+	onChangeText={text=>setName(text)}
+	placeholder="Enter Your Name"
+	//keyboardType="numeric"
+	//secureTextEntry={true}
+/>
+```
+## Switch
+```js
+const[isDark, setIsDark]=useState(false);
+<Switch 
+	value={isDark} onValueChange={newValue => setIsDark(newValue)}
+/>
+```
+## Picker
+```js
+function  CustomPicker({ icon, items, onSelectItem, placeholder, selectedItem }) {
+
+const items= [
+  {
+    id: 1,
+    title: 'First Item',
+  },
+  {
+    id: 2,
+    title: 'Second Item',
+  },
+  {
+    id: 3,
+    title: 'Third Item',
+  },
+];
+const placehoder="Categories";
+
+const [modalVisible, setModalVisible] = useState(false);
+const [category, setCategory] = useState(items[0]);
+const selectedItem =  category;
+
+const onSelectItem={(item) =>  setCategory(item)}
+
+return (
+<>
+	<TouchableWithoutFeedback  onPress={() =>  setModalVisible(true)}>
+		<View>
+		<Text  style={styles.text}>
+		{selectedItem ?  selectedItem.label : placeholder}
+		</Text>
+		<MaterialCommunityIcons name="chevron-down" />
+		</View>
+	</TouchableWithoutFeedback>
+	<Modal  visible={modalVisible}  animationType="slide">
+		<Button  title="Close"  onPress={() =>  setModalVisible(false)}  />
+		<FlatList
+			data={items}
+			keyExtractor={(item) =>  item.id.toString()}
+			renderItem={({ item }) => (
+			
+			<TouchableOpacity  onPress={() => {
+				setModalVisible(false);
+				onSelectItem(item);}>
+				<Text>{item.label}</Text>
+			</TouchableOpacity>
+		)}
+		/>
+	</Modal>
+</>
+);
+}
+```
