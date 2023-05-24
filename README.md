@@ -567,3 +567,129 @@ return (
 );
 }
 ```
+# Forms
+```js
+function Login(){
+const [email,setEmail] = useState();
+const [password,setPassword] = useState();
+
+return(
+	<View>
+		<TextInput 
+			autoCapitalize="none"
+			autoCorrect={false}
+			keyboardType="email-address"
+			onChangeText={(text) => setEmail(text)}
+			placeholder="Email"
+			textContentType="emailAddress" // for IOS autofill
+		/>
+		<TextInput 
+			autoCapitalize="none"
+			autoCorrect={flase}
+			onChangeText={(text) => setPassword(text)}
+			placeholder="Password"
+			secureTextEntry={true}
+			textContentType="password" // for IOS autofill
+		/>
+		<Button onPress={()=> console.log(email, password)} />
+	</View>
+)
+}
+```
+## Forms Using Formik library
+State variables no longer required
+1. Install
+```
+npm i formik
+```
+2. Implement
+```js
+import { Formik } from 'formik'
+function Login(){
+
+return(
+	<View>
+		<Formik 
+			intialValues={{email:'',password:''}}
+			onSubmit={values => console.log(values)}
+		>
+			{({handleChange, handleSubmit}) =>(
+				<>
+					<TextInput 
+						autoCapitalize="none"
+						autoCorrect={false}
+						keyboardType="email-address"
+						onChangeText={handleChange("email")}
+						placeholder="Email"
+						textContentType="emailAddress" // for IOS autofill
+					/>
+					<TextInput 
+						autoCapitalize="none"
+						autoCorrect={flase}
+						onChangeText={handleChange("password")}
+						placeholder="Password"
+						secureTextEntry={true}
+						textContentType="password" // for IOS autofill
+					/>
+					<Button onPress={handleSubmit} />
+				</>
+			) }
+		</Formik>
+		
+	</View>
+)
+}
+```
+## Validation Using Yup
+1. Installation
+```
+npm i yup
+```
+2. Implementation
+```js
+import { Formik } from 'formik'
+import * as Yup from 'yup';
+
+const schema = Yup.Object().shape({
+	email: Yup.string().required().email().label("Email"),
+	password: Yup.string().required().min(8).label("Password"),
+});
+
+function Login(){
+
+return(
+	<View>
+		<Formik 
+			intialValues={{email:'',password:''}}
+			onSubmit={values => console.log(values)}
+			validationSchema={schema}
+		>
+			{({handleChange, handleSubmit, errors}) =>(
+				<>
+					<TextInput 
+						autoCapitalize="none"
+						autoCorrect={false}
+						keyboardType="email-address"
+						onChangeText={handleChange("email")}
+						placeholder="Email"
+						textContentType="emailAddress" // for IOS autofill
+					/>
+					<Text>{errors.email}</Text>
+					<TextInput 
+						autoCapitalize="none"
+						autoCorrect={flase}
+						onChangeText={handleChange("password")}
+						placeholder="Password"
+						secureTextEntry={true}
+						textContentType="password" // for IOS autofill
+					/>
+					<Text>{errors.password}</Text>
+					<Button onPress={handleSubmit} />
+				</>
+			) }
+		</Formik>
+		
+	</View>
+)
+}
+```
