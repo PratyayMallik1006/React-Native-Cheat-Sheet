@@ -514,7 +514,7 @@ const[isDark, setIsDark]=useState(false);
 ```
 ## Picker
 ```js
-function  CustomPicker({ icon, items, onSelectItem, placeholder, selectedItem }) {
+function  CustomPicker() {
 
 const items= [
   {
