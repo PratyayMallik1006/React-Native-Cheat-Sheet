@@ -693,3 +693,111 @@ return(
 )
 }
 ```
+# Device Features
+Know more: https://docs.expo.dev/versions/latest/
+
+## Image picker
+1. Install
+```
+expo install expo-image-picker
+```
+2. Requesting Permissions
+```js
+import { useEffect } from  "react";
+import { StyleSheet, Text, View } from  'react-native';
+import * as  ImagePicker  from  "expo-image-picker";
+ 
+
+export  default  function  App() {
+const  requestPermission = async () => {
+	const  result = await  ImagePicker.requestMediaLibraryPermissionsAsync();
+	if (!result.granted) alert("Kindly give permission");
+};
+
+  
+
+useEffect(() => {
+	requestPermission();
+}, []);  
+//Second parameter prevents from requesting permission on every re-render
+ 
+
+return  <View></View>;
+}
+```
+**Otherwise, Requesting multiple permissions using expo-permissions**
+1. Install
+```
+expo install expo-permissions
+```
+2. Requesting Permissions
+```js
+import { useEffect } from  "react";
+import { StyleSheet, Text, View } from  'react-native';
+import * as  ImagePicker  from  "expo-image-picker";
+ 
+
+export  default  function  App() {
+
+const  requestPermission = async () => {
+	const  result = Permissions.askAsync(
+		Permissions.MEDIA_LIBRARY,
+		Permissions.CAMERA
+	);
+	// const result = await ImagePicker.requestMediaLibraryPermissionsAsync();
+	if (!result.granted) alert("Kindly give permission for photos please");
+};
+
+  
+
+useEffect(() => {
+	requestPermission();
+}, []);  
+//Second parameter prevents from requesting permission on every re-render
+ 
+
+return  <View></View>;
+}
+```
+
+3. Importing Image
+```js
+import { useEffect } from  "react";
+import {View, Button, Image } from  'react-native';
+import * as  ImagePicker  from  "expo-image-picker";
+ 
+
+export  default  function  App() {
+
+const  requestPermission = async () => {
+	const  result = Permissions.askAsync(
+		Permissions.MEDIA_LIBRARY,
+		Permissions.CAMERA
+	);
+	// const result = await ImagePicker.requestMediaLibraryPermissionsAsync();
+	if (!result.granted) alert("Kindly give permission for photos please");
+};
+
+  
+
+useEffect(() => {
+	requestPermission();
+}, []);  
+//Second parameter prevents from requesting permission on every re-render
+ 
+const  selectImage = async () => {
+	try {
+		const  result = await  ImagePicker.launchImageLibraryAsync();
+		if (!result.canceled) setImageUri(result.uri);
+		} catch (error) {
+		console.log("error reading a aimage");
+	}
+};
+
+return  (
+	<View>
+		<Button  title="Select Image"  onPress={selectImage}  />
+		<Image  source={{ uri: imageUri }} />
+	</View>);
+}
+```
