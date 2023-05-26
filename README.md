@@ -932,4 +932,50 @@ return (
 );
 }
 ```
+## Tab Navigations:
+1. Install:
+```
+npm install @react-navigation/bottom-tabs
+```
+2. Implement
+```js
+import  React  from  "react";
+import { Button, Text, View } from  "react-native";
+import { createBottomTabNavigator } from  "@react-navigation/bottom-tabs";
+import { NavigationContainer, useNavigation } from  "@react-navigation/native";
 
+const  Home = () => (
+	<View>
+		<Text>Home</Text>
+	</View>
+);
+
+const  Menu = () => (
+	<View>
+		<Text>Menu </Text>
+	</View>
+);
+ 
+const  Tab = createBottomTabNavigator();
+
+const  TabNavigator = () => (
+<Tab.Navigator
+	tabBarOptions={{
+	activeBackgroundColor: "blue",
+	activeTintColor: "white",
+	inactiveBackgroundColor: "grey",
+	inactiveTintColor: "white",
+	}}
+>
+	<Tab.Screen  name="Feed"  component={Home}  />
+	<Tab.Screen  name="Options"  component={Menu}  />
+</Tab.Navigator>
+);
+
+export  default  function  App() {
+return (
+<NavigationContainer>
+	<TabNavigator  />
+</NavigationContainer>
+);
+}
