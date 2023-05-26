@@ -851,39 +851,44 @@ npm install @react-navigation/stack@^5.x
 ```
 2. Implement
 ```js
-import  React  from  "react";
-import { Text, View } from  "react-native";
-import { createStackNavigator } from  "@react-navigation/stack";
-import { NavigationContainer } from  "@react-navigation/native";
+import React from "react";
+import { Button, Text, View } from "react-native";
+import { createStackNavigator } from "@react-navigation/stack";
+import { NavigationContainer, useNavigation } from "@react-navigation/native";
 
- 
+const Link = () => {
+  const navigation = useNavigation();
 
-const  Home = () => (
-	<View>
-	<Text>Home</Text>
-	</View>
+  return <Button title="Click" onPress={() => navigation.navigate("Menu")} />;
+};
+
+const Home = ({ navigation }) => (
+  <View>
+    <Text>Home</Text>
+    <Button title="View Menu" onPress={() => navigation.navigate("Menu")} />
+    <Link />
+  </View>
 );
 
-const  Menu = () => (
-	<View>
-	<Text>Menu</Text>
-	</View>
+const Menu = () => (
+  <View>
+    <Text>Menu</Text>
+  </View>
 );
 
-const  Stack = createStackNavigator();
-
-const  StackNavigator = () => (
-	<Stack.Navigator  initialRouteName="Home">
-		<Stack.Screen  name="Home"  component={Home}  />
-		<Stack.Screen  name="Menu"  component={Menu}  />
-	</Stack.Navigator>
+const Stack = createStackNavigator();
+const StackNavigator = () => (
+  <Stack.Navigator initialRouteName="Home">
+    <Stack.Screen name="Home" component={Home} />
+    <Stack.Screen name="Menu" component={Menu} />
+  </Stack.Navigator>
 );
 
-export  default  function  App() {
-return (
-	<NavigationContainer>
-		<StackNavigator  />
-	</NavigationContainer>
-);
+export default function App() {
+  return (
+    <NavigationContainer>
+      <StackNavigator />
+    </NavigationContainer>
+  );
 }
 ```
