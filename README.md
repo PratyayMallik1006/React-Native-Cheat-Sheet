@@ -892,7 +892,7 @@ export default function App() {
   );
 }
 ```
-## Passing Parameters
+**Passing Parameters:**
 ```js
 import  React  from  "react";
 import { Text, View } from  "react-native";
