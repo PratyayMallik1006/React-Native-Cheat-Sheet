@@ -829,4 +829,61 @@ useEffect(() => {
 return  location;
 };
 ```
+# Navigation
+Know more: https://reactnavigation.org/docs/getting-started/
+Installation:
+```
+npm install @react-navigation/native
+```
+```
+npm install react-native-screens react-native-safe-area-context
+```
+**Major types of navigations:**
+1. Stack Navigation
+2. Tab Navigation
+3. Drawer Navigation
 
+## Stack Navigator:
+
+1. Install:
+```
+npm install @react-navigation/stack@^5.x
+```
+2. Implement
+```js
+import  React  from  "react";
+import { Text, View } from  "react-native";
+import { createStackNavigator } from  "@react-navigation/stack";
+import { NavigationContainer } from  "@react-navigation/native";
+
+ 
+
+const  Home = () => (
+	<View>
+	<Text>Home</Text>
+	</View>
+);
+
+const  Menu = () => (
+	<View>
+	<Text>Menu</Text>
+	</View>
+);
+
+const  Stack = createStackNavigator();
+
+const  StackNavigator = () => (
+	<Stack.Navigator  initialRouteName="Home">
+		<Stack.Screen  name="Home"  component={Home}  />
+		<Stack.Screen  name="Menu"  component={Menu}  />
+	</Stack.Navigator>
+);
+
+export  default  function  App() {
+return (
+	<NavigationContainer>
+		<StackNavigator  />
+	</NavigationContainer>
+);
+}
+```
