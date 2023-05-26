@@ -892,3 +892,44 @@ export default function App() {
   );
 }
 ```
+## Passing Parameters
+```js
+import  React  from  "react";
+import { Text, View } from  "react-native";
+import { createStackNavigator } from  "@react-navigation/stack";
+import { NavigationContainer } from  "@react-navigation/native";
+
+const  Home = ({ navigation }) => (
+<View>
+	<Text>Home</Text>
+	<Button
+		title="View Menu"
+		onPress={() =>  navigation.navigate("Menu", { id: 1 })}
+	/>
+</View>
+);
+
+const  Menu = ({ route }) => (
+	<View>
+		<Text>Menu {route.params.id}</Text>
+	</View>
+);
+
+const  Stack = createStackNavigator();
+
+const  StackNavigator = () => (
+	<Stack.Navigator  initialRouteName="Home">
+		<Stack.Screen  name="Home"  component={Home}  />
+		<Stack.Screen  name="Menu"  component={Menu}  />
+	</Stack.Navigator>
+);
+
+export  default  function  App() {
+return (
+	<NavigationContainer>
+		<StackNavigator  />
+	</NavigationContainer>
+);
+}
+```
+
