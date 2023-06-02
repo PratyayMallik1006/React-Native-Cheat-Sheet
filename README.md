@@ -979,3 +979,77 @@ return (
 </NavigationContainer>
 );
 }
+```
+# Backend Services
+
+## Axios Through APISause
+1. Install:
+```
+npm i apisauce
+```
+2. Implement
+**Get:**
+```js
+import { create } "apisauce";
+
+const apiClient = create({
+	baseURL: "https://***.***.*.**:****",
+});
+
+apiClient.get("/get").then((response)=>{
+	if(!response.ok){
+		console.log(response.problem);
+	}
+});
+```
+Or
+```js
+import { create } from  "apisauce";
+
+const  client = create({
+	baseURL: "http://***.***.*.**:****/api",
+});
+
+const[dataList, setDataList]=usestate([]);
+
+useEffect(()=>{
+	loadData();	
+},[])
+
+const loadData = async ()=>{
+	const response = await client.get("/posts");
+	setDataList(response.data);
+}
+```
+**Post:**
+```js
+import { create } from  "apisauce";
+
+const  client = create({
+	baseURL: "http://***.***.*.**:****/api",
+});
+
+const addBlog = listData =>{
+	const data = new FormData();
+	data.append('name',listData,name);
+	data.append('post',listData,post); 
+	data.append('postID',listData,postId);
+	
+	listData.images.forEach((image, index) =>
+		data.append("images", {
+			name: "image" + index,
+			type: "image/jpeg",
+			uri: image,
+		})
+	);
+
+	if (listData.location)
+	data.append("location", JSON.stringify(listData.location));
+
+	return  client.post("/post", data);
+}
+
+const  handleSubmit = async (listing) => {
+	const  result = await listingsApi.addListing(listing);
+};
+```
