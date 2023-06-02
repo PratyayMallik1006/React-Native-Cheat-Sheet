@@ -1053,3 +1053,120 @@ const  handleSubmit = async (listing) => {
 	const  result = await listingsApi.addListing(listing);
 };
 ```
+# Offline Support
+## NetInfo
+Allows you to get information about connection type and connection quality.
+know more: https://docs.expo.dev/versions/latest/sdk/netinfo/
+
+1. Install
+```
+npx expo install @react-native-community/netinfo
+```
+2. Implement
+```js
+import  React  from  "react";
+import  NetInfo, {useNetInfo} from  "@react-native-community/netinfo"
+
+export  default  function  App() {
+	NetInfo.fetch().then((netInfo)=>  console.log(netInfo));
+	//or
+	NetInfo.addEventListener(netInfo=>console.log(netInfo));
+	//or
+	const netInfo = useNetInfo();
+	const view = netInfo.isInternetReachable? <View></View>:<View></View>;
+	const btn = <Button disabled={!netInfo.isInternetReachable)/>
+	return null;
+}
+``` 
+
+## Caching
+**Using AsyncStorage:**
+Know More:https://docs.expo.dev/versions/latest/sdk/async-storage/
+
+1. Install
+```
+npx expo install @react-native-async-storage/async-storage
+```
+2. Implement:
+```js
+import  AsyncStorage  from  "@react-native-async-storage/async-storage";
+
+export  default  function  App() {
+
+	const  demo = async () => {
+		try {
+			await  AsyncStorage.setItem("@storage_Key", JSON.stringify({ id: 1 }));
+			const  value = await  AsyncStorage.getItem('@storage_Key')
+			const  obj = JSON.parse(value);
+		} catch (error) {
+			console.log(error);
+		}
+	};
+
+	return  null;
+}
+```
+**Implementing with Backend Services:**
+```js
+import { create } from  "apisauce";
+import  AsyncStorage  from  "@react-native-async-storage/async-storage";
+import  moment  from  "moment";
+
+const  prefix = "cache";
+const  expiryInMinutes = 5;
+
+const  cacheStore = async (key, value) => {
+try {
+	const  item = {
+	value,
+	timestamp: Date.now(),
+	};
+	await  AsyncStorage.setItem(prefix + key, JSON.stringify(item));
+	} catch (error) {
+	console.log(error);
+}
+};
+
+const  isExpired = (item) => {
+	const  now = moment(Date.now());
+	const  storedTime = moment(item.timestamp);
+	return  now.diff(storedTime, "minutes") > expiryInMinutes;
+};
+
+const  cacheGet = async (key) => {
+try {
+	const  value = await  AsyncStorage.getItem(prefix + key);
+	const  item = JSON.parse(value);
+
+	if (!item) return  null;
+
+	if (isExpired(item)) {
+		await  AsyncStorage.removeItem(prefix + key);
+		return  null;
+	}
+
+	return  item.value;
+	} catch (error) {
+	console.log(error);
+	}
+};
+
+  
+const  apiClient = create({
+	baseURL: "http://***.***.*.**:****/data",
+});  
+
+const  get =  apiClient.get;
+apiClient.get = async (url, params, axiosConfig) => {
+	const  response = await  get(url, params, axiosConfig);
+
+	if (response.ok) {
+	cacheStore(url,  response.data);
+	return  response;
+	}
+
+	const  data = await cacheGet(url);
+	return  data ? { ok: true, data } : response;
+};
+
+```
